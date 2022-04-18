@@ -62,25 +62,12 @@
     }
 
   </style>
-  <script>
-    $(document).ready(function(){
-      $.ajax({
-        type: "GET",
-        url: "http://spartacodingclub.shop/sparta_api/weather/seoul",
-        data: {},
-        success: function (response){
-          $('#weather').text(response["temp"])
-        }
-      })
-    });
-  </script>
 </head>
 
 <body>
 
   <div class="mytitle">
     <h1>Tom Misch 팬명록</h1>
-    <p >현재 기온 : <span id="weather"></span>도</p>
   </div>
 
   <div class="mypost">
