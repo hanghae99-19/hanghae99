@@ -2,16 +2,13 @@ from flask import Flask, render_template, request, jsonify
 app = Flask(__name__)
 
 from pymongo import MongoClient
-import certifi
-
-ca = certifi.where()
-
-client = MongoClient('mongodb+srv://test:sparta@cluster0.arjwt.mongodb.net/Cluster0?retryWrites=true&w=majority', tlsCAFile=ca)
+client = MongoClient('mongodb+srv://stacy:wldms0231@cluster0.x0ed3.mongodb.net/Cluster0?retryWrites=true&w=majority')
 db = client.dbsparta
+
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+   return render_template('index.html')
 
 @app.route("/homework", methods=["POST"])
 def homework_post():
@@ -22,13 +19,14 @@ def homework_post():
         'name':name_receive,
         'comment':comment_receive
     }
-    db.homework.insert_one(doc)
+    db.hw.insert_one(doc)
+
     return jsonify({'msg':'응원완료!'})
 
 @app.route("/homework", methods=["GET"])
 def homework_get():
-    homework_list = list(db.homework.find({}, {'_id': False}))
-    return jsonify({'homework':homework_list})
+    comment_list = list(db.hw.find({},{'_id':False}))
+    return jsonify({'comments':comment_list})
 
 if __name__ == '__main__':
-    app.run('0.0.0.0', port=5500, debug=True)
+   app.run('127.0.0.6', port=5000, debug=True)
