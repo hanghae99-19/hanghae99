@@ -133,7 +133,7 @@
         function listing() {
             $.ajax({
                 type: 'GET',
-                url: '/book',
+                url: '/하연',
                 data: {},
                 success: function (response) {
                     let rows = response['books']
@@ -203,7 +203,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: '/book',
+                url: '/하연',
                 data: {'url_give': url, 'star_give': star, 'comment_give': comment},
                 success: function (response) {
                     alert(response['msg'])

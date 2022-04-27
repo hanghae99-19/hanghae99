@@ -16,13 +16,13 @@ db = client.dbsparta
 
 @app.route('/')
 def home():
-   return render_template('index.html')
+   return render_template('hy.html')
 
 
 
 
 
-@app.route("/book", methods=["POST"])
+@app.route("/하연", methods=["POST"])
 def movie_post():
 
     url_receive = request.form['url_give']
@@ -56,7 +56,7 @@ def movie_post():
     # 여기에 코딩을 해서 meta tag를 먼저 가져와보겠습니다.
 
 
-@app.route("/book", methods=["GET"])
+@app.route("/하연", methods=["GET"])
 def book_get():
 
     book_list = list(db.books.find({},{'_id':False}))
@@ -97,13 +97,13 @@ def book_rank_post():
         return  jsonify({'msg':'저장완료!'})
 
 
-@app.route("/book_rank", methods=["GET"])
-def book_rank_get():
-
-    book_rank_list = list(db.book_rank.find({},{'_id':False}))
-
-
-    return jsonify({'book2':book_rank_list})
+# @app.route("/book_rank", methods=["GET"])
+# def book_rank_get():
+#
+#     book_rank_list = list(db.book_rank.find({},{'_id':False}))
+#
+#
+#     return jsonify({'book2':book_rank_list})
 
 
 
