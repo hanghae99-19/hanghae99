@@ -11,7 +11,7 @@ client = MongoClient('mongodb+srv://test:sparta@cluster0.ryfyy.mongodb.net/Clust
 db = client.dbsparta
 
 
-@app.route('/성인')
+@app.route('/')
 def home():
     return render_template('si.html')
 
