@@ -1,6 +1,9 @@
 # Hanghae99
 
-<img src = "https://images.velog.io/post-images/chltndid724/9b356620-f234-11e9-b908-a36ade2c465a/%EC%86%8C%ED%94%84%ED%8A%B8%EC%9B%A8%EC%96%B4%EA%B0%9C%EB%B0%9C%EC%9E%901.png" width =730/>
+
+<img width="1163" alt="스크린샷 2022-04-28 오전 2 26 06" src="https://user-images.githubusercontent.com/85288036/165588640-20b0050d-dbca-4f8d-9b65-a5e3512cb122.png">
+
+
 
 강의록: https://teamsparta.notion.site/29a54c0180c141148bcb5f8215242e0e
 
@@ -14,8 +17,8 @@
   
 ## 💻 Member
 김주영 (팀장)     
-권지은 (아이스 브레이커)   
-김하연  (깃허브 관리)    
+권지은 (아이스 브레이커 + main.html 작성 및 디자인)   
+김하연  (깃허브 관리담당 + 코드병합 및 수정)    
 정현욱 (서기)     
 조성인 (약속 메이커)   
     
