@@ -12,7 +12,7 @@
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
 
-    <title>책 대신 남겨드립니다.</title>
+    <title>조성인</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 
@@ -21,27 +21,11 @@
             font-family: 'Gowun Dodum', sans-serif;
         }
 
-
-        .mytitle2 {
-            width: 100%;
-            height: 70px;
-
-            background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('');
-            background-position: center;
-            background-size: cover;
-
-            color: white;
-
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
         .mytitle {
             width: 100%;
             height: 250px;
 
-            background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('http://newsimg.hankookilbo.com/2020/04/21/202004211422083541_3.jpg');
+            background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://www.wallpaperuse.com/wallp/19-197450_m.jpg');
             background-position: center;
             background-size: cover;
 
@@ -51,8 +35,8 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-        }
 
+        }
 
 
         .mytitle > button {
@@ -103,7 +87,7 @@
 
         .mybtns > button {
             margin-right: 10px;
-
+        }
 
         @charset "UTF-8";
 
@@ -118,7 +102,7 @@
         function listing() {
             $.ajax({
                 type: 'GET',
-                url: '/book',
+                url: '/성인',
                 data: {},
                 success: function (response) {
                     let rows = response['books']
@@ -167,7 +151,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: '/book',
+                url: '/성인',
                 data: {url_give: url, star_give: star, comment_give: comment},
                 success: function (response) {
                     alert(response['msg'])
@@ -176,41 +160,6 @@
                 }
             });
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                }
-            })
-        }
-
-
 
         function open_box() {
             $('#post-box').show()
@@ -225,27 +174,9 @@
 
 <body>
 
-<nav class="navbar navbar-expand-lg" id="mainNav">
-    <div class="container px-4">
-        <a class="navbar-brand" href="#page-top">책 대신 남겨드립니다.</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
-                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span
-                class="navbar-toggler-icon"></span></button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
-                <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
 
-<div class="mytitle2">
-    <h1>베스트셀러</h1>
-</div>
+
 <div class="mytitle">
-    <h1>내 생애 최고의 도서들</h1>
     <button onclick="open_box()">도서 기록하기</button>
 </div>
 <div class="mypost" id="post-box">
@@ -262,11 +193,6 @@
             <option value="3">⭐⭐⭐</option>
             <option value="4">⭐⭐⭐⭐</option>
             <option value="5">⭐⭐⭐⭐⭐</option>
-            <option value="6">⭐⭐⭐⭐⭐⭐</option>
-            <option value="7">⭐⭐⭐⭐⭐⭐⭐</option>
-            <option value="8">⭐⭐⭐⭐⭐⭐⭐⭐</option>
-            <option value="9">⭐⭐⭐⭐⭐⭐⭐⭐⭐</option>
-            <option value="10">⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐</option>
         </select>
     </div>
     <div class="form-floating">
@@ -280,44 +206,8 @@
 </div>
 <div class="mycards">
     <div class="row row-cols-1 row-cols-md-5 g-4" id="cards-box">
-
     </div>
 </div>
 </body>
 
 </html>
-
-
-
-
-
-
-{#function listing_2() {
-            $.ajax({
-                type: 'GET',
-                url: '/book_rank',
-                data: {},
-                success: function (response) {
-                    let rows = response['book2']
-
-                    for (let i = 0; i < rows.length; i++) {
-
-                        let title2 = rows[i]['title']
-                        let rank2 = rows[i]['rank']
-                        let image2 = rows[i]['img']
-
-                        let temp_html = `<div class="col">
-                                                        <div class="card h-100">
-                                                            <img src="${image2}"
-                                                                 class="card-img-top">
-                                                            <div class="card-body">
-                                                                <h5 class="card-title">${title2}</h5>
-                                                                <p class="card-text">${rank2}</p>
-                                                            </div>
-                                                        </div>
-                                         </div>`
-
-
-                        $('cards-box2').append(temp_html)
-
-                    }

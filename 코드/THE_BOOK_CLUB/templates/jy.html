@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title> JY_Page</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Gowun Dodum', sans-serif;
+        }
+
+        .title {
+            color: white;
+            width: 100%;
+            height: 250px;
+
+            background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0)), url("https://t2.daumcdn.net/thumb/R720x0/?fname=http://t1.daumcdn.net/brunch/service/user/7KD/image/Twc6gpoHWkc7XDaoU_pZ3opJcWk.jpg");
+            background-position: center;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .title > button {
+            width: 200px;
+            height: 50px;
+
+            font-size: 20px;
+
+            color: white;
+            background-color: transparent;
+
+            margin-top: 20px;
+
+            border-radius: 50px;
+            border: 2px solid white;
+        }
+
+        .title > button:hover {
+            color: seagreen;
+            border: 3px solid seagreen;
+            box-shadow: 0px 1px 4px 1px gray;
+            text-shadow: 0px 0px 2px navajowhite;
+        }
+
+        .mycomment{
+            color: gray;
+        }
+
+
+        .book-post {
+            max-width: 400px;
+            width: 95%;
+
+            margin: 20px auto 0px auto;
+            padding: 20px;
+
+            box-shadow: 0px 3px 6px 2px gray;
+            display: none;
+
+        }
+
+        .post-button {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+
+            margin-top: 10px;
+        }
+
+        .post-button > button{
+            margin-left: 10px;
+        }
+
+        .mycards{
+            margin: 20px auto 0px auto;
+            width: 95%;
+            max-width: 1200px;
+
+        }
+
+    </style>
+
+    <script>
+        $(document).ready(function (){
+            display_list()
+        })
+
+        function display_list(){
+            $.ajax({
+                type: "GET",
+                url: "/list",
+                data: {},
+                success: function (response){
+                    for (let data of response['orders']){
+                        let title = data['title']
+                        let image = data['img']
+                        let desc = data['desc'].substr(0, 50)
+                        let star = '⭐'.repeat(data['star'])
+                        let comment = data['comment']
+
+                        let temp_html = `
+                         <div class="col">
+                            <div class="card h-100">
+                                <img src=${image}
+                                     class="card-img-top" >
+                                <div class="card-body">
+                                    <h5 class="card-title">${title}</h5>
+                                    <div class="card-text">${desc}...</div>
+                                    <p>${star}</p>
+                                    <p class="mycomment">${comment}</p>
+                                </div>
+                            </div>
+                         </div>`
+
+                        $('#card-boxs').append(temp_html)
+                    }
+
+                }
+
+            })
+        }
+
+        function post_card(){
+            $.ajax({
+                type: "POST",
+                url: '/post',
+                data: { 'url_give' : $('#floatingInput').val(),
+                    'star_give' : $('#inputGroupSelect01').val(),
+                    'comment_give' : $('#floatingTextarea2').val()
+                },
+                success: function(response){
+                    alert(response['msg'])
+                    window.location.reload()
+                }
+            })
+
+        }
+
+        function open_box() {
+            $('#post-box').show()
+        }
+
+        function close_box() {
+            $("#post-box").hide()
+        }
+    </script>
+</head>
+<body>
+<div class="title">
+    <h1>JY_book</h1>
+    <button onclick="open_box()">🪴책 기록🪴</button>
+</div>
+
+<div class="book-post" id="post-box">
+    <div class="form-floating mb-3">
+        <input type="url" class="form-control" id="floatingInput" placeholder="url">
+        <label for="floatingInput">URL</label>
+    </div>
+
+        <div class="input-group mb-3">
+            <label class="input-group-text" for="inputGroupSelect01">별점</label>
+            <select class="form-select" id="inputGroupSelect01">
+                <option selected>-선택-</option>
+                <option value="1">⭐</option>
+                <option value="2">⭐⭐</option>
+                <option value="3">⭐⭐⭐</option>
+                <option value="4">⭐⭐⭐⭐</option>
+                <option value="5">⭐⭐⭐⭐⭐</option>
+            </select>
+        </div>
+
+    <div class="form-floating">
+        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
+                  style="height: 100px"></textarea>
+        <label for="floatingTextarea2">Comments</label>
+    </div>
+
+    <div class="post-button">
+        <button type="button" class="btn btn-dark" onclick="post_card()">기록하기</button>
+        <button type="button" class="btn btn-light" onclick="close_box()">닫기</button>
+    </div>
+</div>
+
+<div class="mycards">
+    <div class="row row-cols-1 row-cols-md-4 g-4" id="card-boxs">
+
+    </div>
+</div>
+</body>
+</html>
