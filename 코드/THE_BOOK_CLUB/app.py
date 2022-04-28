@@ -2,7 +2,6 @@ from flask import Flask, render_template, request, jsonify
 from pymongo import MongoClient
 import requests
 from bs4 import BeautifulSoup
-from PIL import Image
 
 app = Flask(__name__)
 
@@ -122,14 +121,6 @@ def post_hy_book_rank():
 
         db.book_rank.insert_one(doc2)
         return  jsonify({'msg':'저장완료!'})
-
-# @app.route("/book_rank", methods=["GET"])
-# def book_rank_get():
-#
-#     book_rank_list = list(db.book_rank.find({},{'_id':False}))
-#
-#
-#     return jsonify({'book2':book_rank_list})
 
 app.route("/bookj", methods=["POST"])
 def post_je():
