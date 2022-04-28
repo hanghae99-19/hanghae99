@@ -6,7 +6,7 @@ from PIL import Image
 
 app = Flask(__name__)
 
-client = MongoClient('mongodb+srv://test:sparta@cluster0.b7vsn.mongodb.net/Cluster0?retryWrites=true&w=majority')
+client = MongoClient('mongodb+srv://stacy:wldms0231@cluster0.x0ed3.mongodb.net/Cluster0?retryWrites=true&w=majority')
 db = client.dbsparta
 
 
@@ -39,28 +39,28 @@ def get_jy_page():
 # list
 @app.route("/하연", methods=["GET"])
 def get_hy_list():
-    book_list = list(db.books.find({},{'_id':False}))
-    return jsonify({'books':book_list})
+    book_list = list(db.db_hy.find({},{'_id':False}))
+    return jsonify({'db_hy':book_list})
 
 @app.route("/bookj", methods=["GET"])
 def get_je_list():
-    book_list = list(db.books.find({}, {'_id': False}))
-    return jsonify({'books': book_list})
+    book_list = list(db.db_je.find({}, {'_id': False}))
+    return jsonify({'db_je': book_list})
 
 @app.route("/현욱", methods=["GET"])
 def get_hw_list():
-    book_list = list(db.books.find({},{'_id':False}))
-    return jsonify({'books':book_list})
+    book_list = list(db.db_hw.find({},{'_id':False}))
+    return jsonify({'db_hw':book_list})
 
 @app.route('/list', methods=['GET'])
 def get_jy_list():
-    data = list(db.books.find({}, {'_id':False}))
-    return jsonify({'orders': data})
+    data = list(db.db_jy.find({}, {'_id':False}))
+    return jsonify({'db_jy': data})
 
 @app.route("/성인", methods=["GET"])
 def get_si_list():
-    book_list = list(db.books.find({}, {'_id': False}))
-    return jsonify({'books': book_list})
+    book_list = list(db.db_si.find({}, {'_id': False}))
+    return jsonify({'db_si': book_list})
 
 
 # post
@@ -88,7 +88,7 @@ def post_hy():
         'url' : url_receive
     }
 
-    db.books.insert_one(doc)
+    db.db_hy.insert_one(doc)
 
     return  jsonify({'msg':'저장완료!'})
 
@@ -154,7 +154,7 @@ def post_je():
        'star': star_receive,
        'comment': comment_receive
    }
-   db.books.insert_one(doc)
+   db.db_je.insert_one(doc)
 
    return jsonify({'msg': '저장완료!'})
 
@@ -185,7 +185,7 @@ def post_hw():
 
     }
 
-    db.books.insert_one(doc)
+    db.db_hw.insert_one(doc)
 
     return  jsonify({'msg':'기록완료!'})
 
@@ -212,7 +212,7 @@ def post_jy():
             'comment' : comment_receive,
             'desc' : desc}
 
-    db.books.insert_one(data)
+    db.db_jy.insert_one(data)
 
     return jsonify({'msg':'success'})
 
@@ -242,7 +242,7 @@ def post_si():
 
     }
 
-    db.books.insert_one(doc)
+    db.db_si.insert_one(doc)
 
     return jsonify({'msg': '저장완료.'})
 
@@ -250,6 +250,5 @@ def post_si():
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
-
 
 
