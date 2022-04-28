@@ -1,25 +1,71 @@
 from flask import Flask, render_template, request, jsonify
-app = Flask(__name__)
-
+from pymongo import MongoClient
 import requests
 from bs4 import BeautifulSoup
-
 from PIL import Image
 
-
-from pymongo import MongoClient
+app = Flask(__name__)
 
 client = MongoClient('mongodb+srv://test:sparta@cluster0.b7vsn.mongodb.net/Cluster0?retryWrites=true&w=majority')
 db = client.dbsparta
 
 
+# pages
+@app.route('/')
+def get_home_page():
+    return render_template('main.html')
+
+@app.route('/hy')
+def get_hy_page():
+    return render_template('hy.html')
+
+@app.route('/je')
+def get_je_page():
+    return render_template('je.html')
+
+@app.route('/hu')
+def get_hu_page():
+    return render_template('hu.html')
+
+@app.route('/si')
+def get_si_page():
+    return render_template('si.html')
+
+@app.route('/jy')
+def get_jy_page():
+    return render_template('jy.html')
 
 
+# list
+@app.route("/하연", methods=["GET"])
+def get_hy_list():
+    book_list = list(db.books.find({},{'_id':False}))
+    return jsonify({'books':book_list})
+
+@app.route("/bookj", methods=["GET"])
+def get_je_list():
+    book_list = list(db.books.find({}, {'_id': False}))
+    return jsonify({'books': book_list})
+
+@app.route("/현욱", methods=["GET"])
+def get_hw_list():
+    book_list = list(db.books.find({},{'_id':False}))
+    return jsonify({'books':book_list})
+
+@app.route('/list', methods=['GET'])
+def get_jy_list():
+    data = list(db.books.find({}, {'_id':False}))
+    return jsonify({'orders': data})
+
+@app.route("/성인", methods=["GET"])
+def get_si_list():
+    book_list = list(db.books.find({}, {'_id': False}))
+    return jsonify({'books': book_list})
 
 
+# post
 @app.route("/하연", methods=["POST"])
-def movie_post():
-
+def post_hy():
     url_receive = request.form['url_give']
     star_receive = request.form['star_give']
     comment_receive = request.form['comment_give']
@@ -34,14 +80,12 @@ def movie_post():
     desc = soup.select_one('meta[property="og:description"]')['content'][:40]+'.....'
     image = soup.select_one('meta[property="og:image"]')['content']
     doc = {
-
         'title' : title,
         'image' : image,
         'desc' : desc,
         'star' : star_receive,
         'comment' : comment_receive,
         'url' : url_receive
-
     }
 
     db.books.insert_one(doc)
@@ -50,20 +94,8 @@ def movie_post():
 
     # 여기에 코딩을 해서 meta tag를 먼저 가져와보겠습니다.
 
-
-@app.route("/하연", methods=["GET"])
-def book_get():
-
-    book_list = list(db.books.find({},{'_id':False}))
-
-
-    return jsonify({'books':book_list})
-
-
-
-
 @app.route("/book_rank", methods=["POST"])
-def book_rank_post():
+def post_hy_book_rank():
 
 
     headers = {'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
@@ -91,7 +123,6 @@ def book_rank_post():
         db.book_rank.insert_one(doc2)
         return  jsonify({'msg':'저장완료!'})
 
-
 # @app.route("/book_rank", methods=["GET"])
 # def book_rank_get():
 #
@@ -100,36 +131,8 @@ def book_rank_post():
 #
 #     return jsonify({'book2':book_rank_list})
 
-
-
-
-
-
-if __name__ == '__main__':
-   app.run('0.0.0.0', port=5000, debug=True)
-
-
-@app.route('/hy')
-def getTicket_hy():
-   return render_template('hy.html')
-
-
-@app.route('/je')
-def getTicket_je():
-   return render_template('je.html')
-
-@app.route('/hu')
-def getTicket_hu():
-   return render_template('hu.html')
-
-@app.route('/')
-def home_main():
-   return render_template('main.html')
-
-
-@app.route("/bookj", methods=["POST"])
-def book_post_je():
-
+app.route("/bookj", methods=["POST"])
+def post_je():
    url_receive = request.form['url_give']
    star_receive = request.form['star_give']
    comment_receive = request.form['comment_give']
@@ -155,15 +158,8 @@ def book_post_je():
 
    return jsonify({'msg': '저장완료!'})
 
-
-@app.route("/bookj", methods=["GET"])
-def book_get_hy():
-   book_list = list(db.books.find({}, {'_id': False}))
-   return jsonify({'books': book_list})
-
-
 @app.route("/현욱", methods=["POST"])
-def book_post():
+def post_hw():
 
     url_receive = request.form['url_give']
     star_receive = request.form['star_give']
@@ -179,10 +175,7 @@ def book_post():
     desc = soup.select_one('meta[property="og:description"]')['content'][:40]+'.....'
     image = soup.select_one('meta[property="og:image"]')['content']
 
-
-
     doc = {
-
         'title' : title,
         'image' : image,
         'desc' : desc,
@@ -192,37 +185,12 @@ def book_post():
 
     }
 
-
     db.books.insert_one(doc)
 
     return  jsonify({'msg':'기록완료!'})
 
-
-@app.route("/현욱", methods=["GET"])
-def book_get_hw():
-
-    book_list = list(db.books.find({},{'_id':False}))
-
-
-    return jsonify({'books':book_list})
-
-
-
-
-
-
-
-@app.route('/jy')
-def jy_page():
-    return  render_template('jy.html')
-
-@app.route('/list', methods=['GET'])
-def jy_list():
-    data = list(db.books.find({}, {'_id':False}))
-    return jsonify({'orders': data})
-
 @app.route('/post', methods=['POST'])
-def jy_post():
+def post_jy():
     url_receive = request.form['url_give']
     star_receive = request.form['star_give']
     comment_receive = request.form['comment_give']
@@ -237,7 +205,6 @@ def jy_post():
     img = soup.select_one('meta[property="og:image"]')['content']
     desc = soup.select_one('meta[property="og:description"]')['content']
 
-
     # DB
     data = {'title' : title,
             'img' : img,
@@ -249,17 +216,8 @@ def jy_post():
 
     return jsonify({'msg':'success'})
 
-
-
-
-@app.route('/si')
-def home_si():
-    return render_template('si.html')
-
-
 @app.route("/성인", methods=["POST"])
-def book_post_si():
-
+def post_si():
     url_receive = request.form['url_give']
     star_receive = request.form['star_give']
     comment_receive = request.form['comment_give']
@@ -288,13 +246,10 @@ def book_post_si():
 
     return jsonify({'msg': '저장완료.'})
 
-@app.route("/성인", methods=["GET"])
-def book_get_si():
-    book_list = list(db.books.find({}, {'_id': False}))
-
-    return jsonify({'books': book_list})
 
 
+if __name__ == '__main__':
+    app.run('0.0.0.0', port=5000, debug=True)
 
 
 
