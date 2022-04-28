@@ -106,7 +106,7 @@
                 url: "/list",
                 data: {},
                 success: function (response){
-                    for (let data of response['orders']){
+                    for (let data of response['db_jy']){
                         let title = data['title']
                         let image = data['image']
                         let desc = data['desc'].substr(0, 50)

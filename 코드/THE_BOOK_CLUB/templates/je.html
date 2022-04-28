@@ -100,7 +100,7 @@
                 url: '/bookj',
                 data: {},
                 success: function (response) {
-                    let rows = response['books']
+                    let rows = response['db_je']
                     for (let i = 0; i < rows.length; i++) {
                         let image = rows[i]['image']
                         let title = rows[i]['title']

@@ -111,7 +111,6 @@ def post_hy_book_rank():
         title = cha.select_one('div.detail > div.title > a > strong').text
 
 
-        # print('{}위 -- {} -- {}'.format(num,title,img))
 
         doc2 = {
             'rank': num,
