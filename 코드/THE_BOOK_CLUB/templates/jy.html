@@ -108,11 +108,12 @@
                 success: function (response){
                     for (let data of response['orders']){
                         let title = data['title']
-                        let image = data['img']
+                        let image = data['image']
                         let desc = data['desc'].substr(0, 50)
                         let star = '⭐'.repeat(data['star'])
                         let comment = data['comment']
 
+                        console.log(image)
                         let temp_html = `
                          <div class="col">
                             <div class="card h-100">
