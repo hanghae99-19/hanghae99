@@ -207,7 +207,7 @@ def post_jy():
 
     # DB
     data = {'title' : title,
-            'img' : img,
+            'image' : img,
             'star' : star_receive,
             'comment' : comment_receive,
             'desc' : desc}
