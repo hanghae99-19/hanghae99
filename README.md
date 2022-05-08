@@ -26,7 +26,7 @@
 
 
 ## 💻 DevTech  
-Language : Python, AWS, Flask, HTML, CSS, JAVASCRIPT 
+Language : Python, AWS, Flask, HTML, CSS, Javascript
 
 
 ## 회의록 
